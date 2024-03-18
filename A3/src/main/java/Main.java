@@ -2,11 +2,60 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
         //testing all functions
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. get all students");
+            System.out.println("2. Add a new student");
+            System.out.println("3. Delete a student");
+            System.out.println("4. Update a student's email");
+            System.out.println("5. Exit");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    getAllStudents();
+                    break;
+                case 2:
+                    System.out.println("Enter first name:");
+                    String firstName = scanner.nextLine();
+                    System.out.println("Enter last name:");
+                    String lastName = scanner.nextLine();
+                    System.out.println("Enter email:");
+                    String email = scanner.nextLine();
+                    System.out.println("Enter enrollment date (YYYY-MM-DD):");
+                    String enrollmentDate = scanner.nextLine();
+                    addStudent(firstName, lastName, email, enrollmentDate);
+                    break;
+                case 3:
+                    System.out.println("Enter student ID to delete:");
+                    int idToDelete = scanner.nextInt();
+                    deleteStudent(idToDelete);
+                    break;
+                case 4:
+                    System.out.println("Enter student ID to update:");
+                    int idToUpdate = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter new email:");
+                    String newEmail = scanner.nextLine();
+                    updateStudentEmail(idToUpdate, newEmail);
+                    break;
+                case 5:
+                    System.out.println("Exiting");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
     }
 
     // Function to connect to the database
